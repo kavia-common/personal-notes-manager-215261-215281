@@ -2,7 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from flask_smorest import Api
 
-from .routes.health import blp
+from .routes.health import blp as health_blp
+from .routes.notes import blp as notes_blp
 from .storage import notes_repo  # ensure repository is importable from app
 
 # Initialize Flask app with OpenAPI configuration
@@ -18,7 +19,8 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 # Create API and register blueprints
 api = Api(app)
-api.register_blueprint(blp)
+api.register_blueprint(health_blp)
+api.register_blueprint(notes_blp)
 
 # Expose notes_repo via app context module for potential future use
 # This makes 'from app.storage import notes_repo' work and also keeps linter happy.

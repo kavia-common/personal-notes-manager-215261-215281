@@ -1,10 +1,12 @@
 from flask_smorest import Blueprint
 from flask.views import MethodView
 
-blp = Blueprint("Healt Check", "health check", url_prefix="/", description="Health check route")
+# Health check endpoint under /api for consistency with API prefixing
+blp = Blueprint("Health", "health", url_prefix="/api", description="Health check route")
 
 
-@blp.route("/")
+@blp.route("/health")
 class HealthCheck(MethodView):
     def get(self):
+        """Returns a simple message to indicate the service is healthy."""
         return {"message": "Healthy"}
